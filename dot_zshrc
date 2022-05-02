@@ -361,6 +361,7 @@ bw login
 if [ -z "${BW_SESSION}" ]; then
   bw unlock
 fi
+chezmoi apply
 
 SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/OpenSSH private key/{print \$1}' | tr -d ':'" \;)
 if [[ -z "${SSH_PRIVATE_KEYS}" ]]; then
