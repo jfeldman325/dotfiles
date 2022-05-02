@@ -345,3 +345,28 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 
 # Try to keep this last for best results
 has starship && eval "$(starship init zsh)"
+
+if ! has bw; then
+    wget -O ~/bw.zip  https://vault.bitwarden.com/download/\?app\=cli\&platform\=linux
+    unzip ~/bw.zip 
+    chmod +rwx bw
+    mv bw /usr/local/bin/
+fi
+
+source ~/.local-macros
+bw config server bitwarden.tenant-jfeldman.lga1.ingress.coreweave.cloud
+bw login
+
+if [ -z "${BW_SESSION}" ]; then
+  bw unlock
+fi
+
+SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/OpenSSH private key/{print \$1}' | tr -d ':'" \;)
+if [[ -z "${SSH_PRIVATE_KEYS}" ]]; then
+  ssh-keygen -f ~/.ssh/id_rsa -t rsa -N "$(bw get password ssh-password)"
+  gh ssh-key add ~/.ssh/id_rsa.pub
+else
+  echo "SSH key exists or could not be created"
+fi
+ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
+
