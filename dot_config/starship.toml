@@ -1,7 +1,7 @@
 add_newline = true
 
 [kubernetes]
-format = "[☸\uFE0E $context:$namespace](blue) "
+format = "[ext:$namespace](blue) "
 disabled = false
 
 [username]
