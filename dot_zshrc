@@ -364,7 +364,7 @@ fi
 chezmoi apply
 
 SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/-----OPENSSH PRIVATE KEY-----/{print \$1}' | tr -d ':'" \;)
-if [[ -z "${SSH_PRIVATE_KEYS}" ]]; then
+if ! grep "OPENSSH" ~/.ssh/* >> /dev/null; then
   ssh-keygen -f ~/.ssh/id_rsa -t rsa -N "$(bw get password ssh-password)"
   gh ssh-key add ~/.ssh/id_rsa.pub
 else
