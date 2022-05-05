@@ -4,7 +4,7 @@ bw() {
  if [ x"$cmd" = x"unlock" ] && [ $# -eq 0 ]; then
   local session="$(FORCE_COLOR=$(_bw_force_color) _bw_run "$cmd" --raw "$@")"
   if [ x"$session" != x"" ]; then
-   export BW_SESSION={$session}
+   export BW_SESSION=$session
   else
    return 1
   fi
