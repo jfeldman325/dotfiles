@@ -342,8 +342,6 @@ alias tree="$(has exa && printf 'exa --tree' || printf 'tree -C')"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
-# Try to keep this last for best results
-has starship && eval "$(starship init zsh)"
 
 if ! has bw; then
     wget -O ~/bw.zip  https://vault.bitwarden.com/download/\?app\=cli\&platform\=linux
@@ -374,3 +372,5 @@ fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
 plugin load jfeldman325/dev-packages
+
+has starship && eval "$(starship init zsh)"
