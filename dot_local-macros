@@ -121,3 +121,4 @@ emc(){
 }
 
 alias bw-ssh-pw= "bw get password ssh-password| echo"
+alias cm="chezmoi"
