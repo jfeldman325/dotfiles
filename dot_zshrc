@@ -236,7 +236,6 @@ plugins+=(
     Aloxaf/fzf-tab
     zsh-users/zsh-autosuggestions
     zdharma-continuum/fast-syntax-highlighting
-    jfeldman325/dev-packages
 )
 
 plugin load $plugins
@@ -375,3 +374,4 @@ else
 fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
+plugin load jfeldman325/dev-packages
