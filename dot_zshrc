@@ -230,11 +230,10 @@ compdef _plugin plugin
 
 plugins+=(
     coreweave/dev-shell
-		FFKL/s3cmd-zsh-plugin
+    FFKL/s3cmd-zsh-plugin
     # anything loaded after this plugin gets deffered to background async execution
     romkatv/zsh-defer
     Aloxaf/fzf-tab
-    zsh-users/zsh-autosuggestions
     zdharma-continuum/fast-syntax-highlighting
 )
 
