@@ -3,11 +3,7 @@ bw() {
  [ $# -ge 1 ] && shift || true
  if [ x"$cmd" = x"unlock" ] && [ $# -eq 0 ]; then
   local session="$(FORCE_COLOR=$(_bw_force_color) _bw_run "$cmd" --raw "$@")"
-  if [ x"$session" != x"" ]; then
-   export BW_SESSION=$session
-  else
-   return 1
-  fi
+  export BW_SESSION=$session
  elif [ x"$cmd" = x"lock" ] && [ $# -eq 0 ]; then
   _bw_run "$cmd" "$@" && unset BW_SESSION
  else
