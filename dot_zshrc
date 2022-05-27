@@ -228,6 +228,21 @@ plugin () {
 }
 compdef _plugin plugin
 
+if ! has op; then
+    wget -O ~/op.zip  https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_linux_amd64_v2.2.0.zip
+    unzip ~/op.zip 
+    chmod +x op
+    mv op /usr/local/bin/
+fi
+eval "$(op completion zsh)"; compdef _op op
+
+source ~/.local-macros
+
+eval $(op account add --address coreweave.1password.com)
+env | grep "OP_SESSION" >> ~/.zshenv
+
+echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
+
 plugins+=(
     coreweave/dev-shell
     FFKL/s3cmd-zsh-plugin
@@ -320,6 +335,9 @@ has glab && . <(glab completion -s zsh) && compdef _glab glab
 # dotfile manager
 has chezmoi && . <(chezmoi completion zsh) && compdef _chezmoi chezmoi
 
+# 1password
+has op && . <(op completion zsh) && compdef _op op
+
 # Define aliases.
 alias sudo='/usr/bin/sudo'
 alias grep='grep --color=auto'
@@ -343,20 +361,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 
-if ! has bw; then
-    wget -O ~/bw.zip  https://vault.bitwarden.com/download/\?app\=cli\&platform\=linux
-    unzip ~/bw.zip 
-    chmod +rwx bw
-    mv bw /usr/local/bin/
-fi
 
-source ~/.local-macros
-bw config server bitwarden.tenant-jfeldman.lga1.ingress.coreweave.cloud
-bw login
-
-if [ -z "${BW_SESSION}" ]; then
-  bw unlock
-fi
 
 if [ -f "~/.zshenv" ]; then
   chezmoi apply --force
@@ -371,6 +376,7 @@ else
 fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
+gh auth login --with-token < $(bw get password gh_access_token) 
 plugin load jfeldman325/dev-packages
 
 has starship && eval "$(starship init zsh)"
