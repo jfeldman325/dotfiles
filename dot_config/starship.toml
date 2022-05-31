@@ -11,9 +11,10 @@ disabled = false
 
 [time]
 use_12hr=true
-format='🌏[\[ $time \]](white)'
-time_format="%k%M%p-%A %B %d %Y"
+format='🌏[$time](white)'
+time_format="%I:%M%p-%A %B %d %Y"
 utc_time_offset = "-5"
+disabled = false
 
 [username]
 style_user = "white"
