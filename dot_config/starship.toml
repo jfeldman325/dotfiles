@@ -10,7 +10,7 @@ format = "[$context:$namespace](blue) "
 disabled = false
 
 [time]
-use_12h=true
+use_12hr=true
 format='🌏[\[ $time \]]($style)'
 time_format="%k%M%p-%A %B %d %Y"
 utc_time_offset = "-5"
