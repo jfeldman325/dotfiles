@@ -1,6 +1,6 @@
 add_newline = true
 format="""
-╭─$username@$hostname($localip):$directory ($kubernetes) $git_branch 
+╭─$username@$hostname\($localip\):$directory \($kubernetes\) $git_branch 
 | Status 
 ╰─$time──➤ 
 """
