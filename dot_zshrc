@@ -256,6 +256,7 @@ chezmoi apply --force
 plugins+=(
     coreweave/dev-shell
     FFKL/s3cmd-zsh-plugin
+    jfeldman325/dev-packages
     # anything loaded after this plugin gets deffered to background async execution
     romkatv/zsh-defer
     Aloxaf/fzf-tab
@@ -379,8 +380,6 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 #   echo "SSH key exists or could not be created"
 # fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
-
-plugin load jfeldman325/dev-packages
 
 has starship && eval "$(starship init zsh)"
 
