@@ -1,14 +1,14 @@
 add_newline = true
 format="""
 ╭─ $container$username@$hostname|$localip|$kubernetes|$directory$git_branch 
-│ Status
+│ Status(bold blue)
 │ local $memory_usage cpu-usage:${custom.cpu_usage}
 ╰─$time──➤ 
 """
 [custom.cpu_usage]
-shell=["/bin/bash","-c"]
 command="mpstat  | grep all | awk '{print 100-$12}'"
 when=true
+format = "[$output](white)%"
 
 [kubernetes]
 format = "[$context](white):[$namespace](bold red)"
