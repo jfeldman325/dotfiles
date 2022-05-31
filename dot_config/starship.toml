@@ -7,12 +7,12 @@ format="""
 """
 [custom.cpu_usage_low]
 command="mpstat  | grep all | awk '{print 100-$12}'"
-when="mpstat  | grep all | awk -v x=5 '100-$12 < x{print 0}'"
+when="[ $output -lt 5 ]"
 format = "[$output](white)"
 
 [custom.cpu_usage_high]
 command="mpstat  | grep all | awk '{print 100-$12}'"
-when="mpstat  | grep all | awk -v x=5 '100-$12 > x{print 0}'"
+when="[ $output -gt 5 ]"
 format = "[$output](bold red)"
 
 
