@@ -384,4 +384,4 @@ plugin load jfeldman325/dev-packages
 
 has starship && eval "$(starship init zsh)"
 
-python3 ./okta-login.py -u $(op item get coreweave.okta.com --fields username) -p $(op((tem get c  corewe.okta.com --fields password) -c $(op$(o)m get coreweavweave.okta.com --fields client_id) -s $(op item get coreweave.okta.com --fields client_secret) -i /python-oidc-login/
+klogin
