@@ -2,7 +2,7 @@ add_newline = true
 format="""
 ╭─ $container$username@$hostname|$localip|$kubernetes|$directory$git_branch 
 │ (underline bold blue)Status
-│ local $memory_usage cpu-usage: ${custom.cpu_usage}
+│ local $memory_usage cpu-usage: ${custom.cpu_usage_low}${custom.cpu_usage_high}
 ╰─$time──➤ 
 """
 [custom.cpu_usage_low]
@@ -10,7 +10,7 @@ command="mpstat  | grep all | awk '{print 100-$12}'"
 when="mpstat  | grep all | awk -v x=5 '100-$12 < x{print 0}'"
 format = "[$output](white) %"
 
-[custom.cpu_usage_low]
+[custom.cpu_usage_high]
 command="mpstat  | grep all | awk '{print 100-$12}'"
 when="mpstat  | grep all | awk -v x=5 '100-$12 > x{print 0}'"
 format = "[$output](bold red) %"
