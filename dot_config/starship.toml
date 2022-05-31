@@ -3,7 +3,7 @@ format="""
 ╭─ $container$username@$hostname\\\\$localip\\\\($kubernetes\\\\)$directory$git_branch 
 │ [Status](underline bold blue)
 │ local $memory_usage ⚡${custom.cpu_usage_low}${custom.cpu_usage_high}
-╰─$time──➤ 
+╰─$time──$character 
 """
 [custom.cpu_usage_low]
 command="mpstat  | grep all | awk '{print 100-$12}'"
@@ -55,6 +55,6 @@ ssh_only = false
 format = "[$hostname](green)"
 
 [character]
-success_symbol = "[»](bold green)"
+success_symbol = "[➤](bold green)"
 error_symbol = "[✗](bold red) "
 vicmd_symbol = "[«](bold green)"
