@@ -239,10 +239,6 @@ eval "$(op completion zsh)"; compdef _op op
 chezmoi apply ~/.local-macros
 source ~/.local-macros
 
-if [ -f "~/.zshenv" ]; then
-  chezmoi apply --force
-fi
-
 if op account list | grep coreweave; then
   eval $(op signin)
 else
@@ -256,6 +252,7 @@ else
   echo "gh pre-authenticated"
 fi
 
+chezmoi apply --force
 plugins+=(
     coreweave/dev-shell
     FFKL/s3cmd-zsh-plugin
