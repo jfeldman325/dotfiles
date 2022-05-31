@@ -240,7 +240,7 @@ chezmoi apply ~/.local-macros
 source ~/.local-macros
 
 if op account list | grep coreweave; then
-  eval $(op signin)
+  op signin
 else
   eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
 fi
