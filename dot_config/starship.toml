@@ -8,12 +8,12 @@ format="""
 [custom.cpu_usage_low]
 command="mpstat  | grep all | awk '{print 100-$12}'"
 when="mpstat  | grep all | awk -v x=5 '100-$12 < x{print 0}'"
-format = "[$output](white) %"
+format = "[$output](white)"
 
 [custom.cpu_usage_high]
 command="mpstat  | grep all | awk '{print 100-$12}'"
 when="mpstat  | grep all | awk -v x=5 '100-$12 > x{print 0}'"
-format = "[$output](bold red) %"
+format = "[$output](bold red)"
 
 
 [kubernetes]
