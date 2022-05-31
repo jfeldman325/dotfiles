@@ -1,6 +1,6 @@
 add_newline = true
 format="""
-╭─$container$username@$hostname|$localip|$kubernetes|$directory$git_branch 
+╭─ $container$username@$hostname|$localip|$kubernetes|$directory$git_branch 
 │ Status 
 ╰─$time──➤ 
 """
@@ -19,7 +19,7 @@ disabled = false
 [username]
 style_user = "white bold"
 style_root = "red bold"
-format = "user: [$user]($style)"
+format = "user:[$user]($style)"
 disabled = false
 show_always = true
 
