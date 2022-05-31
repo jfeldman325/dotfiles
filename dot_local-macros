@@ -147,3 +147,7 @@ emc(){
 
 alias bw-ssh-pw= "bw get password ssh-password| echo"
 alias cm="chezmoi"
+
+klogin(){
+  python3 ~/.login/okta-login.py -u $(op item get coreweave.okta.com --fields username) -p $(op item get coreweave.okta.com --fields password) -c $(op item get coreweave.okta.com --fields client_id) -s $(op item get coreweave.okta.com --fields client_secret)
+}
