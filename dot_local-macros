@@ -1,3 +1,26 @@
+op() {
+ local cmd="$1"
+ [ $# -ge 1 ] && shift || true
+ if [ x"$cmd" = x"signin" ] && [ $# -eq 0 ]; then
+  eval $(op signin)
+  env | grep "OP_SESSION" >> ~/.zshenv
+ elif [ x"$cmd" = x"signout" ] && [ $# -eq 0 ]; then
+  _op_run "$cmd" "$@" && unset BW_SESSION
+ else
+  _op_run "$cmd" "$@"
+ fi
+}
+
+_op_run() {
+ local cmd="$1"
+ [ $# -ge 1 ] && shift || true
+ if [ x"$cmd" != x"" ]; then
+  command op "$cmd" "$@"
+ else
+  command op "$@"
+ fi
+}
+
 bw() {
  local cmd="$1"
  [ $# -ge 1 ] && shift || true
@@ -11,6 +34,8 @@ bw() {
   _bw_run "$cmd" "$@"
  fi
 }
+
+
 
 _bw_run() {
  local cmd="$1"

@@ -236,9 +236,15 @@ if ! has op; then
 fi
 eval "$(op completion zsh)"; compdef _op op
 
+chezmoi apply ~/.local-macros
 source ~/.local-macros
 
-eval $(op account add --address coreweave.1password.com)
+if [ -f "~/.zshenv" ]; then
+  chezmoi apply --force
+fi
+
+op account add --address coreweave.1password.com
+eval $(op signin)
 env | grep "OP_SESSION" >> ~/.zshenv
 
 echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
@@ -360,12 +366,6 @@ alias tree="$(has exa && printf 'exa --tree' || printf 'tree -C')"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
-
-
-
-if [ -f "~/.zshenv" ]; then
-  chezmoi apply --force
-fi
 
 SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/-----OPENSSH PRIVATE KEY-----/{print \$1}' | tr -d ':'" \;)
 if ! grep "OPENSSH" ~/.ssh/* >> /dev/null; then
