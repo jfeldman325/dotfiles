@@ -28,7 +28,4 @@ error_symbol = "[✗](bold red) "
 vicmd_symbol = "[«](bold green) "
 
 # Use custom format
-format = """
-[┌───────────────────>](bold green)
-[│](bold green)$directory$rust$package
-[└─>](bold green) """
+format= "[$context:$namespace](blue) "
