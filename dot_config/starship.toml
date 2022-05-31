@@ -1,4 +1,9 @@
 add_newline = true
+format="""
+╭─$user@$hostname($local_ip):$directory ($kubernetes) $git_branch 
+| Status 
+╰─$time──➤ 
+"""
 
 [kubernetes]
 format = "[$context:$namespace](blue) "
