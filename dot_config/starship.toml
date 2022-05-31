@@ -1,7 +1,7 @@
 add_newline = true
 format="""
-╭─$username@$hostname|$localip|$kubernetes|$directory:$git_branch 
-| Status 
+╭─$container$username@$hostname|$localip|$kubernetes|$directory$git_branch 
+│ Status 
 ╰─$time──➤ 
 """
 
@@ -24,7 +24,7 @@ disabled = false
 show_always = true
 
 [directory]
-format = "[$path]($style) [$read_only]($read_only_style)"
+format = "[$path]($style)[$read_only]($read_only_style)"
 
 # \uFE0E forces character to display as unicode glyph not emoji
 read_only = "🔒\uFE0E"
