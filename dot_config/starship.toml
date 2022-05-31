@@ -30,6 +30,7 @@ show_always = true
 
 [memory_usage]
 disabled=false
+threshold=0
 
 
 [directory]
