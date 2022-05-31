@@ -31,7 +31,7 @@ show_always = true
 [memory_usage]
 disabled=false
 threshold=0
-
+format="$symbol[${ram}( \| ${swap})]($style) "
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)"
