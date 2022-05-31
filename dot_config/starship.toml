@@ -6,7 +6,7 @@ format="""
 """
 
 [kubernetes]
-format = "[$context:$namespace](blue) "
+format = "[$context](white):[$namespace](bold red)"
 disabled = false
 
 [time]
@@ -17,28 +17,28 @@ utc_time_offset = "-5"
 disabled = false
 
 [username]
-style_user = "white"
+style_user = "white bold"
 style_root = "red bold"
 format = "user: [$user]($style)"
 disabled = false
 show_always = true
 
 [directory]
-format = "[$path]($style) [$read_only]($read_only_style) "
+format = "[$path]($style) [$read_only]($read_only_style)"
 
 # \uFE0E forces character to display as unicode glyph not emoji
 read_only = "🔒\uFE0E"
 
 [localip]
 ssh_only=false
-format = "[$localipv4](bold red) "
+format = "[$localipv4](bold blue)"
 disabled = false
 
 [hostname]
 ssh_only = false
-format =  "[$hostname](green) "
+format =  "[$hostname](green)"
 
 [character]
-success_symbol = "[»](bold green) "
+success_symbol = "[»](bold green)"
 error_symbol = "[✗](bold red) "
-vicmd_symbol = "[«](bold green) "
+vicmd_symbol = "[«](bold green)"
