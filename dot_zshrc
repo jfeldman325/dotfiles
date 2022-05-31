@@ -243,8 +243,7 @@ if [ -f "~/.zshenv" ]; then
   chezmoi apply --force
 fi
 
-op account add --address coreweave.1password.com
-eval $(op signin)
+eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
 env | grep "OP_SESSION" >> ~/.zshenv
 
 echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
