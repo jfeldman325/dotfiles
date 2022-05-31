@@ -1,0 +1,3 @@
+host: http://prometheus.tenant.chi.int.atlanticcrypto.com:9090
+output: json
+step: 14m
