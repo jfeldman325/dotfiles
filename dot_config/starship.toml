@@ -8,7 +8,7 @@ format="""
 [custom.cpu_usage]
 command="mpstat  | grep all | awk '{print 100-$12}'"
 when=true
-format = "[$output](white)%"
+format = "[$output](white) %"
 
 [kubernetes]
 format = "[$context](white):[$namespace](bold red)"
