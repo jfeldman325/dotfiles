@@ -2,7 +2,7 @@ op() {
  local cmd="$1"
  [ $# -ge 1 ] && shift || true
  if [ x"$cmd" = x"signin" ] && [ $# -eq 0 ]; then
-  eval $(op signin)
+  eval $(_lc_op_run signin)
   env | grep "OP_SESSION" >> ~/.zshenv
  elif [ x"$cmd" = x"signout" ] && [ $# -eq 0 ]; then
   _lc_op_run "$cmd" "$@" && unset BW_SESSION
