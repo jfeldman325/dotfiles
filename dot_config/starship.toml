@@ -2,14 +2,12 @@ add_newline = true
 format="""
 ╭─ $container$username@$hostname|$localip\\($kubernetes\\)|$directory$git_branch 
 │ \\eStatus\\e
-│ local $memory_usage $custom.cpu_usage
+│ local $memory_usage cpu-usage:$custom.cpu_usage
 ╰─$time──➤ 
 """
 [custom.cpu_usage]
 shell=["/bin/bash","-c"]
-command="top -bn1 | gtop -bn1 | grep "Cpu(s)" | \
-           sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
-           awk '{print 100 - $1"%"}'"
+command="mpstat  | grep all | awk '{print 100-$12}'"
 when=true
 
 [kubernetes]
