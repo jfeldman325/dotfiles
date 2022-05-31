@@ -28,4 +28,4 @@ error_symbol = "[✗](bold red) "
 vicmd_symbol = "[«](bold green) "
 
 # Use custom format
-format= "[$context:$namespace](blue) "
+format= "[$kubernetes]"
