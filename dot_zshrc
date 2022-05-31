@@ -374,13 +374,13 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 
-SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/-----OPENSSH PRIVATE KEY-----/{print \$1}' | tr -d ':'" \;)
-if ! grep "OPENSSH" ~/.ssh/* >> /dev/null; then
-  ssh-keygen -f ~/.ssh/id_rsa -t rsa -N "$(bw get password ssh-password)"
-  gh ssh-key add ~/.ssh/id_rsa.pub
-else
-  echo "SSH key exists or could not be created"
-fi
+# SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/-----OPENSSH PRIVATE KEY-----/{print \$1}' | tr -d ':'" \;)
+# if ! grep "OPENSSH" ~/.ssh/* >> /dev/null; then
+#   ssh-keygen -f ~/.ssh/id_rsa -t rsa -N "$(bw get password ssh-password)"
+#   gh ssh-key add ~/.ssh/id_rsa.pub
+# else
+#   echo "SSH key exists or could not be created"
+# fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
 plugin load jfeldman325/dev-packages
