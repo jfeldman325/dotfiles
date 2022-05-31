@@ -229,8 +229,8 @@ plugin () {
 compdef _plugin plugin
 
 if ! has op; then
-    wget -O ~/op.zip  https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_linux_amd64_v2.2.0.zip
-    unzip ~/op.zip 
+    wget -O ~/op.zip  https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_linux_amd64_v2.2.0.zip > /dev/null 2>&1
+    unzip ~/op.zip > /dev/null 2>&1
     chmod +x op
     mv op /usr/local/bin/
 fi
