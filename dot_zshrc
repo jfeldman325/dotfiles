@@ -243,10 +243,18 @@ if [ -f "~/.zshenv" ]; then
   chezmoi apply --force
 fi
 
-eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
-env | grep "OP_SESSION" >> ~/.zshenv
+if op account list | grep coreweave; then
+  eval $(op signin)
+else
+  eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
+fi
 
-echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
+if [ ! -f "~/.config/gh/hosts.yml" ]; then
+  echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
+  echo "gh authenticated"
+else
+  echo "gh pre-authenticated"
+fi
 
 plugins+=(
     coreweave/dev-shell
@@ -375,7 +383,6 @@ else
 fi
 ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
-gh auth login --with-token < $(bw get password gh_access_token) 
 plugin load jfeldman325/dev-packages
 
 has starship && eval "$(starship init zsh)"
