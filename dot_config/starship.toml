@@ -11,7 +11,7 @@ disabled = false
 
 [time]
 use_12hr=true
-format='🌏[\[ $time \]]($style)'
+format='🌏[\[ $time \]](white)'
 time_format="%k%M%p-%A %B %d %Y"
 utc_time_offset = "-5"
 
@@ -26,6 +26,11 @@ format = "[$path]($style) [$read_only]($read_only_style) "
 
 # \uFE0E forces character to display as unicode glyph not emoji
 read_only = "🔒\uFE0E"
+
+[localip]
+ssh_only=false
+format = "@[$localipv4](bold red) "
+disabled = false
 
 [hostname]
 ssh_only = false
