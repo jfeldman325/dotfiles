@@ -298,7 +298,7 @@ export PAGER="less -RF"
 
 #export EDITOR=vim
 if has code; then
-  export EDITOR="$(which code)"
+  export EDITOR="$(which code) -w"
   sucode() {
     EDITOR="$(which code) -w" command -- sudo -e "$@"
   }
