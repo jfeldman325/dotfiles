@@ -5,12 +5,12 @@ format="""
 ╰─$time──$character 
 """
 [custom.cpu_usage_low]
-command="mpstat  | grep all | awk '{print 100-$12}'"
+command="mpstat  | grep all | awk '{print 100-$13}'"
 when="mpstat  | grep all | awk 'BEGIN {exit ((100-$12) <= 25.0)}'"
 format = "[$output](white)"
 
 [custom.cpu_usage_high]
-command="mpstat  | grep all | awk '{print 100-$12}'"
+command="mpstat  | grep all | awk '{print 100-$13}'"
 when="mpstat  | grep all | awk 'BEGIN {exit ((100-$12) >= 25.0)}'"
 format = "[$output](bold red)"
 
@@ -29,7 +29,7 @@ disabled = false
 [username]
 style_user = "white bold"
 style_root = "red bold"
-format = "user:[$user]($style)"
+format = "[$user]($style)"
 disabled = false
 show_always = true
 
