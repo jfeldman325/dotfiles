@@ -380,7 +380,7 @@ else
 fi
 
 if ! ssh-add -l > /dev/null; then
-  ssh-add ~/.ssh/id_rsa
+  op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
   echo "ssh key added"
 fi
 
