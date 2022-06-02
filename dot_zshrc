@@ -151,7 +151,7 @@ plugin-load() {
       ln -s "${initfiles[1]}" "$initfile"
     fi
     fpath+=$plugin_dir
-    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+    (( $+functions[zsh-defer] )) && zsh-defer . $initfile > /dev/null || . $initfile
   done
 }
 
@@ -372,13 +372,15 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 
-# SSH_PRIVATE_KEYS=$(find ~/.ssh/ -type f -exec sh -c "file {} | awk '/-----OPENSSH PRIVATE KEY-----/{print \$1}' | tr -d ':'" \;)
-# if ! grep "OPENSSH" ~/.ssh/* >> /dev/null; then
-#   ssh-keygen -f ~/.ssh/id_rsa -t rsa -N "$(bw get password ssh-password)"
-#   gh ssh-key add ~/.ssh/id_rsa.pub
-# else
-#   echo "SSH key exists or could not be created"
-# fi
+if ! ps -p $SSH_AGENT_PID > /dev/null; then
+  echo "starting ssh agent"
+  eval "$(ssh-agent)"
+fi
+
+if ! ssh-add -l > /dev/null; then
+  ssh-add ~/.ssh/id_rsa
+  echo "ssh key added"
+fi
 
 has starship && eval "$(starship init zsh)"
 
