@@ -1,0 +1,1 @@
+{{ (index (onepassword "docker_config").fields 0).value}}
