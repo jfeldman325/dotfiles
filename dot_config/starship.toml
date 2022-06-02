@@ -25,7 +25,7 @@ when=true
 format= "[$output](bold green)"
 
 [kubernetes]
-format = "[$context](white):[$namespace](light red)"
+format = "[$context](white):[$namespace](red)"
 disabled = false
 
 [time]
