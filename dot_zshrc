@@ -245,7 +245,7 @@ else
   eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
 fi
 
-if [ ! -f "~/.config/gh/hosts.yml" ]; then
+if [ -f "~/.config/gh/hosts.yml" ]; then
   echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
   echo "gh authenticated"
 else
@@ -372,7 +372,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 
-if ! ps -p $SSH_AGENT_PID > /dev/null; then
+if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
   echo "starting ssh agent"
   eval "$(ssh-agent)"
 fi
