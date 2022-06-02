@@ -60,7 +60,7 @@ disabled = false
 
 [hostname]
 ssh_only = false
-format = "[$hostname](green)"
+format = "[$hostname](bold red)"
 
 [character]
 success_symbol = "[➤](bold green)"
