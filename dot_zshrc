@@ -379,11 +379,12 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 # else
 #   echo "SSH key exists or could not be created"
 # fi
-ssh-add -l &> /dev/null || ssh-add ~/.ssh/id_rsa
 
 has starship && eval "$(starship init zsh)"
 
-klogin
+if [ ! -f $KUBECONFIG ]; then
+  klogin
+fi
 
 echo """\x1B[1;31m⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⣋⡛⠛⠻⡟⠛⢻⠛⢛⣟⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⢻⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⢻⡟⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣿
 ⣿⠀⠀⠀⠀⠀⠀⠀⢀⣀⠈⠿⠄⢀⣩⣤⠬⣤⣈⡛⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀⠂⠀⠀⠀⣄⠀⠀⠀⣀⣤⣶⣦⣶⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿
