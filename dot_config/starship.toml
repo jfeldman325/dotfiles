@@ -1,7 +1,7 @@
 add_newline = true
 format="""
 ╭─ $container$username@$hostname\\\\$localip\\\\($kubernetes\\\\)$directory $git_branch 
-│ [Status](underline bold blue) $memory_usage ⚡${custom.cpu_usage_low}${custom.cpu_usage_high}
+│ [Status](underline bold blue) $memory_usage ⚡${custom.cpu_usage_low}${custom.cpu_usage_high} GPU: {custom.gpu_usage} GPU Mem:{custom_gpu_memory_usage}
 ╰─$time──$character 
 """
 [custom.cpu_usage_low]
@@ -14,6 +14,15 @@ command="mpstat  | grep all | awk '{print 100-$13}'"
 when="mpstat  | grep all | awk 'BEGIN {exit ((100-$12) >= 25.0)}'"
 format = "[$output](bold red)"
 
+[custom.gpu_usage]
+command="nvidia-smi -q --display=UTILIZATION | grep Gpu | awk '{print $3}'"
+when=true
+format= "[$output](bold green)"
+
+[custom.gpu_memory_usage]
+command="nvidia-smi -q --display=UTILIZATION | grep 'Memory  ' | awk '{print $3}'"
+when=true
+format= "[$output](bold green)"
 
 [kubernetes]
 format = "[$context](white):[$namespace](bold red)"
