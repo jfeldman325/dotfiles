@@ -1,6 +1,6 @@
 add_newline = true
 format="""
-╭─ $container$username@$hostname\\\\$localip\\\\($kubernetes\\\\)$directory$git_branch 
+╭─ $container$username@$hostname\\\\$localip\\\\($kubernetes\\\\)$directory $git_branch 
 │ [Status](underline bold blue) $memory_usage ⚡${custom.cpu_usage_low}${custom.cpu_usage_high}
 ╰─$time──$character 
 """
