@@ -239,7 +239,7 @@ eval "$(op completion zsh)"; compdef _op op
 chezmoi apply ~/.local-macros
 source ~/.local-macros
 
-if op account list | grep coreweave; then
+if op account list | grep coreweave > /dev/null; then
   op signin
 else
   eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
@@ -248,8 +248,6 @@ fi
 if [ -f "~/.config/gh/hosts.yml" ]; then
   echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
   echo "gh authenticated"
-else
-  echo "gh pre-authenticated"
 fi
 
 chezmoi apply --force
