@@ -155,3 +155,5 @@ klogin(){
 alias kaf="k apply -f"
 alias kubens="k ns"
 alias kubectx="k ctx"
+alias kvirt="k virt"
+alias virtctl="k virt"
