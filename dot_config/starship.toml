@@ -1,9 +1,15 @@
 add_newline = true
 format="""
 ╭─$container$username@$hostname\\\\$localip\\\\($kubernetes):$directory $git_branch 
-│       [Status:](underline bold blue) $memory_usage⚡${custom.cpu_usage_low}${custom.cpu_usage_high} GPU:${custom.gpu_usage} GPU Mem:${custom.gpu_memory_usage}
+│ ${custom.op_status}    [Status:](underline bold blue) $memory_usage⚡${custom.cpu_usage_low}${custom.cpu_usage_high} GPU:${custom.gpu_usage} GPU Mem:${custom.gpu_memory_usage}
 ╰─$time──$character 
 """
+
+[custom.op_status]
+command="if (op account get > /dev/null);then echo 🔓; else echo 🔒;fi"
+when=true
+format="1P [$output]"
+
 [custom.cpu_usage_low]
 command="mpstat  | grep all | awk '{print 100-$13}'"
 when="mpstat  | grep all | awk 'BEGIN {exit ((100-$12) <= 25.0)}'"
