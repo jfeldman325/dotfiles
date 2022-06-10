@@ -390,7 +390,7 @@ if [ ! -f $KUBECONFIG ]; then
   klogin
 fi
 
-op item edit scarlet_witch --generate-password 
+op item edit scarlet_witch --generate-password >/dev/null
 echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
 
 echo """\x1B[1;31m⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⢩⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿
