@@ -372,10 +372,10 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 
 if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
   echo "starting ssh agent"
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
+  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch.sock
   eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
 else
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock  
+  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch.sock  
   export SSH_AGENT_PID=$(ps ax | grep [s]sh-agent | awk '{print $2}')
 fi
 
