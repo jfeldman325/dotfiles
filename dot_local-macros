@@ -177,11 +177,11 @@ clone_block_volume() {
 		return 1
 	fi
 	if [ $# -lt 4 ]; then
-		NS=$(kubectl get sa -o=jsonpath='{.items[0]..metadata.namespace}')
+		NS="$(kubectl get sa -o=jsonpath='{.items[0]..metadata.namespace}')"
 	else
-		NS=$4
+		NS="$4"
 	fi
-
+	echo $NS
 	SRC_PVC="$1"
 	SRC_PVC_CLASS=$(kubectl -n ${NS} get pvc $SRC_PVC -o=jsonpath='{.spec.storageClassName}')
 	SRC_PVC_SIZE=$(kubectl -n ${NS} get pvc $SRC_PVC -o=jsonpath='{.spec.resources.requests.storage}')
