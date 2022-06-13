@@ -170,3 +170,118 @@ alias kvirt="k virt"
 alias virtctl="k virt"
 alias wk="watch kubectl get pods"
 alias krrd="kubectl rollout restart deployment"
+
+clone_block_volume() {
+	if [ $# -lt 2 ]; then
+		echo "Usage: $0 <source pvc> <destination pvc> <destination region> <namespace>"
+		return 1
+	fi
+	if [ $# -lt 4 ]; then
+		NS=$(kubectl get sa -o=jsonpath='{.items[0]..metadata.namespace}')
+	else
+		NS=$4
+	fi
+
+	SRC_PVC="$1"
+	SRC_PVC_CLASS=$(kubectl -n ${NS} get pvc $SRC_PVC -o=jsonpath='{.spec.storageClassName}')
+	SRC_PVC_SIZE=$(kubectl -n ${NS} get pvc $SRC_PVC -o=jsonpath='{.spec.resources.requests.storage}')
+	SRC_PVC_REGION=${SRC_PVC_CLASS//*-}
+	
+	if [ $# -lt 3 ]; then
+		DST_PVC_REGION=${SRC_PVC_REGION}
+		DST_PVC_CLASS=${SRC_PVC_CLASS}
+		DST_PVC="$2"
+	else
+		DST_PVC_REGION="$3"
+		DST_PVC_CLASS="block-nvme-${DST_PVC_REGION}"
+		DST_PVC="${2}-${3}"
+	fi
+
+	cat <<-EOF | kubectl -n ${NS} apply -f -
+		{
+		  "apiVersion": "v1",
+		  "kind": "PersistentVolumeClaim",
+		  "metadata": {
+			"name": "${DST_PVC}"
+		  },
+		  "spec": {
+			"accessModes": [
+			  "ReadWriteOnce"
+			],
+			"storageClassName": "${DST_PVC_CLASS}",
+			"volumeMode": "Block",
+			"resources": {
+			  "requests": {
+				"storage": "${SRC_PVC_SIZE}"
+			  }
+			}
+		  }
+		}
+	EOF
+	
+	KUBECTL_COMMAND_HEADERS=false kubectl -n ${NS} run clone --rm -ti --restart=Never --image=registry.gitlab.com/coreweave/admin-shell:7db3f7d7926938a5a2e624dbadef9440ae55fa69 --overrides="{
+	  \"spec\": {
+		\"tolerations\": [
+		  {
+			\"key\": \"node.coreweave.cloud/hypervisor\",
+			\"operator\": \"Exists\"
+		  },
+		  {
+			\"key\": \"is_cpu_compute\",
+			\"operator\": \"Exists\"
+		  }
+		],
+		\"nodeSelector\": {
+		  \"node.coreweave.cloud/class\": \"cpu\",
+		  \"ethernet.coreweave.cloud/speed\": \"10G\",
+		  \"topology.kubernetes.io/region\": \"${SRC_PVC_REGION^^}\"
+		},
+		\"containers\": [
+		  {
+			\"name\": \"clone\",
+			\"resources\": {
+			  \"requests\": {
+				\"cpu\": \"1\",
+				\"memory\": \"2Gi\"
+			  }
+			},
+			\"stdin\": true,
+			\"tty\": true,
+			\"stdinOnce\": true,
+			\"image\": \"registry.gitlab.com/coreweave/admin-shell:7db3f7d7926938a5a2e624dbadef9440ae55fa69\",
+			\"command\": [
+			  \"sh\",
+			  \"-c\",
+			  \"dd if=/dev/xvda of=/dev/xvdb bs=1M status=progress\"
+			],
+			\"volumeDevices\": [
+			  {
+				\"devicePath\": \"/dev/xvda\",
+				\"name\": \"source\"
+			  },
+			  {
+				\"devicePath\": \"/dev/xvdb\",
+				\"name\": \"dest\"
+			  }
+			]
+		  }
+		],
+		\"volumes\": [
+		  {
+			\"name\": \"source\",
+			\"persistentVolumeClaim\": {
+			  \"claimName\": \"${SRC_PVC}\",
+			  \"readOnly\": true
+			}
+		  },
+		  {
+			\"name\": \"dest\",
+			\"persistentVolumeClaim\": {
+			  \"claimName\": \"${DST_PVC}\",
+			  \"readOnly\": false
+			}
+		  }
+		]
+	  }
+	}"
+}
