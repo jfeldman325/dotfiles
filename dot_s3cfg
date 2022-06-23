@@ -1,0 +1,18 @@
+[default]
+# access keys for blobstore (CoreWeave Blobstore)
+access_key = JLAR7HHBN36QUXJ8PD5J
+secret_key = 9674PVTKEgiNWujeQyK327FbiXgmjK0tFBh8WmDA
+
+# this is the main IP of one of your servers running RGW, change this if necessary...
+# other IPs: 10.134.60.111
+host_base = 10.134.60.15
+host_bucket = 10.134.60.15
+
+# ...or use these entries if you configured DNS
+#host_base = s3.ord1.coreweave.com
+# remove '%(bucket)s.' if you don't have wildcard DNS configured
+#host_bucket = %(bucket)s.s3.ord1.coreweave.com
+
+# remove this if you configured SSL
+check_ssl_certificate = False
+check_ssl_hostname = False
