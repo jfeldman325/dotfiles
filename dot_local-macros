@@ -110,7 +110,7 @@ kcopy() {
     esac
     shift
   done
-  manifest=$(echo "$manifest" | kneat | yq e 'del(.metadata.namespace)' - | yq e 'del(.spec.volumeName)' - | yq e 'del(.spec.clusterIP)' - | yq e 'del(.spec.ports[].nodePort)' -)
+  manifest=$(echo "$manifest" | kubectl-neat | yq e 'del(.metadata.namespace)' - | yq e 'del(.spec.volumeName)' - | yq e 'del(.spec.clusterIP)' - | yq e 'del(.spec.ports[].nodePort)' -)
   echo $manifest
   if [[ $remove_ann ]]; then
     manifest=$(echo "$manifest" | yq e 'del(.metadata.annotations)' -)
