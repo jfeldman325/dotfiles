@@ -259,12 +259,12 @@ chezmoi apply ~/.local-macros
 source ~/.local-macros
 
 
-privelage=0
+privelage=false
 if confirm "Would you like to start a privilaged session?"; then
-  privelage=1
+  privelage=true
 fi
 
-if $privelage; then
+if [ $privelage = true ]; then
   if op account list | grep coreweave > /dev/null; then
     op signin
   else
