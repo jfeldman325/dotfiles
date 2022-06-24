@@ -286,8 +286,6 @@ clone_block_volume() {
 	}"
 }
 
-unalias sudo 
-
 sudo() {
 	if ! ( op account get > /dev/null 2>&1 );then 
 		echo "Please sign into 1password before gaining sudo access:"
