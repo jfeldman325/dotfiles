@@ -263,6 +263,17 @@ if ! confirm "Would you like to start a privilaged session?"; then
   privelage=true
 fi
 
+unalias sudo > /dev/null 2>&1
+
+sudo() {
+	if ! ( op account get > /dev/null 2>&1 );then 
+		echo "Please sign into 1password before gaining sudo access:"
+		op signin
+	fi
+	export SUDO_ASKPASS=~/.sudo-op
+	/usr/bin/sudo -A $@
+}
+
 if [ $privelage = true ]; then
   if op account list | grep coreweave > /dev/null; then
     op signin
