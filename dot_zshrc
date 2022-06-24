@@ -33,7 +33,6 @@ path+=${BIN_DIR}
 fpath+=${COMP_DIR}
 manpath+=${MAN_DIR}
 
-
 BOLD="$(tput bold 2>/dev/null || printf '')"
 GREY="$(tput setaf 0 2>/dev/null || printf '')"
 UNDERLINE="$(tput smul 2>/dev/null || printf '')"
@@ -43,6 +42,26 @@ YELLOW="$(tput setaf 3 2>/dev/null || printf '')"
 BLUE="$(tput setaf 4 2>/dev/null || printf '')"
 MAGENTA="$(tput setaf 5 2>/dev/null || printf '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || printf '')"
+
+confirm() {
+  if [ -z "${FORCE-}" ]; then
+    printf "%s " "${MAGENTA}?${NO_COLOR} $* ${BOLD}[y/N]${NO_COLOR}"
+    set +e
+    read -r yn </dev/tty
+    rc=$?
+    set -e
+    if [ $rc -ne 0 ]; then
+      error "Error reading from prompt (please choose y or n)"
+      confirm $@
+    fi
+    if [ "$yn" != "y" ] && [ "$yn" != "yes" ]; then
+      pwarn "Starting unprivelaged session. Some features will not work without authentication"
+      return 0
+    else
+      return 1
+    fi
+  fi
+}
 
 pinfo() {
   printf '%s\n' "${BOLD}${GREY}>${NO_COLOR} $*"
@@ -239,22 +258,27 @@ eval "$(op completion zsh)"; compdef _op op
 chezmoi apply ~/.local-macros
 source ~/.local-macros
 
-if op account list | grep coreweave > /dev/null; then
-  op signin
-else
-  eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
+privelage=$(confirm "would you like to start a privilaged session?")
+
+if $privelage; then
+  if op account list | grep coreweave > /dev/null; then
+    op signin
+  else
+    eval $(op account add --address coreweave.1password.com --email jfeldman@coreweave.com --signin)
+  fi
+
+  if [ -f "~/.config/gh/hosts.yml" ]; then
+    echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
+    echo "gh authenticated"
+  fi
+
+  chezmoi apply --force
+  plugin load jfeldman325/dev-packages
+  plugin load coreweave/dev-shell
 fi
 
-if [ -f "~/.config/gh/hosts.yml" ]; then
-  echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
-  echo "gh authenticated"
-fi
-
-chezmoi apply --force
 plugins+=(
-    coreweave/dev-shell
     FFKL/s3cmd-zsh-plugin
-    jfeldman325/dev-packages
     # anything loaded after this plugin gets deffered to background async execution
     romkatv/zsh-defer
     Aloxaf/fzf-tab
@@ -369,32 +393,35 @@ alias tree="$(has exa && printf 'exa --tree' || printf 'tree -C')"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
+if $privelage; then
+  if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
+    echo "starting ssh agent"
+    export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock
+    eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
+  else
+    export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock  
+    export SSH_AGENT_PID=$(ps ax | grep [s]sh-agent | awk '{print $2}')
+  fi
 
-if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
-  echo "starting ssh agent"
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock
-  eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
-else
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock  
-  export SSH_AGENT_PID=$(ps ax | grep [s]sh-agent | awk '{print $2}')
-fi
-
-if ! ssh-add -l > /dev/null; then
-  op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
-  echo "ssh key added"
+  if ! ssh-add -l > /dev/null; then
+    op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
+    echo "ssh key added"
+  fi
 fi
 
 has starship && eval "$(starship init zsh)"
 
-if [ ! -f $KUBECONFIG ]; then
+if [ ! -f $KUBECONFIG ] && $privelage; then
   klogin
 fi
 
-op item edit scarlet_witch --generate-password >/dev/null
-echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
+if $privelage; then 
+  op item edit scarlet_witch --generate-password >/dev/null
+  echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
 
-op item edit scarlet_witch_root --generate-password >/dev/null
-echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root > /dev/null
+  op item edit scarlet_witch_root --generate-password >/dev/null
+  echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root > /dev/null
+fi
 
 bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
