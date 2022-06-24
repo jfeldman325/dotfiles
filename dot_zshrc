@@ -425,7 +425,7 @@ if $privelage; then
   echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
 
   op item edit scarlet_witch_root --generate-password >/dev/null
-  echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root > /dev/null
+  echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root 
 fi
 
 
