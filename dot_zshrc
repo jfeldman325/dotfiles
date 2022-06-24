@@ -56,9 +56,9 @@ confirm() {
     fi
     if [ "$yn" != "y" ] && [ "$yn" != "yes" ]; then
       pwarn "Starting unprivelaged session. Some features will not work without authentication"
-      return 0
+      return false
     else
-      return 1
+      return true
     fi
   fi
 }
@@ -258,7 +258,11 @@ eval "$(op completion zsh)"; compdef _op op
 chezmoi apply ~/.local-macros
 source ~/.local-macros
 
-privelage=$(confirm "would you like to start a privilaged session?")
+
+privelage=false
+if confirm "Would you like to start a privilaged session?"; then
+  privelage=true
+fi
 
 if $privelage; then
   if op account list | grep coreweave > /dev/null; then
