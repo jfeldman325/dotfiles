@@ -259,9 +259,9 @@ chezmoi apply ~/.local-macros
 source ~/.local-macros
 
 
-privelage=false
+privelage=0
 if confirm "Would you like to start a privilaged session?"; then
-  privelage=true
+  privelage=1
 fi
 
 if $privelage; then
