@@ -56,9 +56,9 @@ confirm() {
     fi
     if [ "$yn" != "y" ] && [ "$yn" != "yes" ]; then
       pwarn "Starting unprivelaged session. Some features will not work without authentication"
-      return false
+      return 0
     else
-      return true
+      return 1
     fi
   fi
 }
@@ -260,7 +260,7 @@ source ~/.local-macros
 
 
 privelage=false
-if confirm "Would you like to start a privilaged session?"; then
+if ! confirm "Would you like to start a privilaged session?"; then
   privelage=true
 fi
 
