@@ -285,3 +285,10 @@ clone_block_volume() {
 	  }
 	}"
 }
+
+sudo(){
+	if ! (op account get > /dev/null);then 
+		op signin
+	fi
+	echo $(op item get scarlet_witch_root --fields=password) | sudo -S $@
+}
