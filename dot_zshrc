@@ -417,6 +417,8 @@ has starship && eval "$(starship init zsh)"
 
 if [ ! -f $KUBECONFIG ] && $privelage; then
   klogin
+  chmod o-r ~/.kube/config
+  chmod g-r ~/.kube/config
 fi
 
 if $privelage; then 
