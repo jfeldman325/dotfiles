@@ -4,6 +4,7 @@
 # Author: Christian M. Todie <ctodie@coreweave.com>
 
 # Export environment variables.
+set +e
 export GPG_TTY=$TTY
 export DOTFILES_ZSH_DEBUG="${DOTFILES_ZSH_DEBUG:-0}"
 export DOTFILES_ZSH_CACHE=$XDG_CACHE_HOME/zsh
@@ -46,10 +47,9 @@ NO_COLOR="$(tput sgr0 2>/dev/null || printf '')"
 confirm() {
   if [ -z "${FORCE-}" ]; then
     printf "%s " "${MAGENTA}?${NO_COLOR} $* ${BOLD}[y/N]${NO_COLOR}"
-    set +e
     read -r yn </dev/tty
     rc=$?
-    set -e
+    
     if [ $rc -ne 0 ]; then
       error "Error reading from prompt (please choose y or n)"
       confirm $@
@@ -454,3 +454,4 @@ echo """\x1B[1;31m⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉�
 ⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠃⠀⢾⣷⠆⠀⡦⠀⠙⡿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢈⣤⣾⣂⣸⣿⣿⣿⣿⣿⠉⠈⢿⣿⠛⢻⣿⣷⣶⣤⣤⣄⣀⣀⣤⣤⣶⣾⣿⣿⡟⠋⣹⡿⠃⠀⣼⣿⣿⣿⣦⣦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿
 ⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣈⣁⣀⣀⣇⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣴⣶⣾⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣄⣤⣿⣷⣿⣿⣩⣉⣩⣿⣿⣭⣭⣽⣿⣭⣭⣬⣽⣿⣿⣿⣦⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣿
 """
+set -e
