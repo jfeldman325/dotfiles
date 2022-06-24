@@ -148,14 +148,14 @@ emc(){
 alias bw-ssh-pw= "bw get password ssh-password| echo"
 
 cm(){
-  if ! (op account get > /dev/null);then 
+  if ! (op account get > /dev/null 2>&1);then 
   op signin
   fi
   chezmoi $@
 }
 
 klogin(){
-  if ! (op account get > /dev/null);then 
+  if ! (op account get > /dev/null 2>&1);then 
   op signin
   fi
   python3 ~/.login/okta-login.py -u $(op item get coreweave.okta.com --fields username) -p $(op item get coreweave.okta.com --fields password) -c $(op item get coreweave.okta.com --fields client_id) -s $(op item get coreweave.okta.com --fields client_secret)
@@ -289,7 +289,8 @@ clone_block_volume() {
 unalias sudo 
 
 sudo() {
-	if ! ( op account get > /dev/null );then 
+	if ! ( op account get > /dev/null 2>&1 );then 
+		echo "Please sign into 1password before gaining sudo access:"
 		op signin
 	fi
 	export SUDO_ASKPASS=~/.sudo-op
