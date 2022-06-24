@@ -372,10 +372,10 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 
 if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
   echo "starting ssh agent"
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch.sock
+  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock
   eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
 else
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch.sock  
+  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock  
   export SSH_AGENT_PID=$(ps ax | grep [s]sh-agent | awk '{print $2}')
 fi
 
@@ -395,6 +395,10 @@ echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_w
 
 op item edit scarlet_witch_root --generate-password >/dev/null
 echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root > /dev/null
+
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
+
 
 echo """\x1B[1;31m⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⢩⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿
 ⣿⠀⠀⠀⠀⠀⠀⠀⢀⣀⠈⠿⠄⢀⣩⣤⠬⣤⣈⡛⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣦⣶⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿
