@@ -429,9 +429,9 @@ if $privelage; then
   echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd root > /dev/null
 fi
 
-bindkey '^[[1;5C' emacs-forward-word
-bindkey '^[[1;5D' emacs-backward-word
 
+# bindkey '^[[1;5C' emacs-forward-word
+# bindkey '^[[1;5D' emacs-backward-word
 
 echo """\x1B[1;31m⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⢩⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿
 ⣿⠀⠀⠀⠀⠀⠀⠀⢀⣀⠈⠿⠄⢀⣩⣤⠬⣤⣈⡛⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣦⣶⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿
