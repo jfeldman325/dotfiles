@@ -286,8 +286,8 @@ if [ $privelage = true ]; then
   chezmoi apply --force
 
   echo "loading plugins"
-  sudo plugin load coreweave/dev-shell
-  sudo plugin load jfeldman325/dev-packages
+  sudo -E plugin load coreweave/dev-shell
+  sudo -E plugin load jfeldman325/dev-packages
 fi
 
 plugins+=(
