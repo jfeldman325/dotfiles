@@ -7,7 +7,7 @@
 export GPG_TTY=$TTY
 export DOTFILES_ZSH_DEBUG="${DOTFILES_ZSH_DEBUG:-0}"
 export DOTFILES_ZSH_CACHE=$XDG_CACHE_HOME/zsh
-
+ 
 autoload -U +X compinit && compinit -u
 
 # Define named directories: ~w <=> Windows home directory on WSL.
@@ -277,8 +277,8 @@ if [ $privelage = true ]; then
   fi
 
   chezmoi apply --force
-  plugin load jfeldman325/dev-packages
   plugin load coreweave/dev-shell
+  plugin load jfeldman325/dev-packages
 fi
 
 plugins+=(
