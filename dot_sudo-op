@@ -1,0 +1,2 @@
+#!/bin/zsh
+echo $(op item get scarlet_witch_root --fields password)
