@@ -255,6 +255,7 @@ fi
 eval "$(op completion zsh)"; compdef _op op
 
 chezmoi apply ~/.local-macros
+chezmoi apply ~/.sudo-op
 source ~/.local-macros
 
 
@@ -262,17 +263,6 @@ privelage=false
 if ! confirm "Would you like to start a privilaged session?"; then
   privelage=true
 fi
-
-unalias sudo > /dev/null 2>&1
-
-sudo() {
-	if ! ( op account get > /dev/null 2>&1 );then 
-		echo "Please sign into 1password before gaining sudo access:"
-		op signin
-	fi
-	export SUDO_ASKPASS=~/.sudo-op
-	/usr/bin/sudo -A $@
-}
 
 if [ $privelage = true ]; then
   if op account list | grep coreweave > /dev/null; then
@@ -386,7 +376,6 @@ has chezmoi && . <(chezmoi completion zsh) && compdef _chezmoi chezmoi
 has op && . <(op completion zsh) && compdef _op op
 
 # Define aliases.
-alias sudo='/usr/bin/sudo'
 alias grep='grep --color=auto'
 alias df="df -Tha --total"
 alias du="du -ach"
