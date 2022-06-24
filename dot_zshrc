@@ -7,7 +7,8 @@
 export GPG_TTY=$TTY
 export DOTFILES_ZSH_DEBUG="${DOTFILES_ZSH_DEBUG:-0}"
 export DOTFILES_ZSH_CACHE=$XDG_CACHE_HOME/zsh
- 
+export SUDO_ASKPASS=~/.sudo-op
+
 autoload -U +X compinit && compinit -u
 
 # Define named directories: ~w <=> Windows home directory on WSL.
@@ -252,10 +253,15 @@ if ! has op; then
     sudo chmod +x op
     sudo mv op /usr/local/bin/
 fi
+echo "adding completions"
 eval "$(op completion zsh)"; compdef _op op
 
+
+echo "applying chezmoi"
 chezmoi apply ~/.local-macros
 chezmoi apply ~/.sudo-op
+
+echo "sourcing local macros"
 source ~/.local-macros
 
 
@@ -275,8 +281,11 @@ if [ $privelage = true ]; then
     echo "$(op item get gh_access_token --fields credential)" | gh auth login --with-token
     echo "gh authenticated"
   fi
-
+  
+  echo "applying chezmoi"
   chezmoi apply --force
+
+  echo "loading plugins"
   plugin load coreweave/dev-shell
   plugin load jfeldman325/dev-packages
 fi
@@ -289,6 +298,7 @@ plugins+=(
     zdharma-continuum/fast-syntax-highlighting
 )
 
+echo "loading more plugins"
 plugin load $plugins
 unset plugins
 
