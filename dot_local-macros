@@ -122,7 +122,7 @@ kcopy() {
 }
 
 hid(){
-  helm install $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml ${@:2}
+  helm install $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml
 }
 hud(){
   emc $(kgn) $1 && helm upgrade $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-scale.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
