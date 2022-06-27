@@ -163,7 +163,7 @@ klogin(){
 
 alias kaf="k apply -f"
 alias kgs="k get service"
-alias kgp="k get pod"
+alias kgp="k get pod -o wide"
 alias kubens="k ns"
 alias kubectx="k ctx"
 alias kvirt="k virt"
