@@ -362,6 +362,7 @@ clone_block_volume() {
     kubectl -n ${NS} wait pod --for=condition=ContainersReady --timeout=300s --selector=job-name=${JOB_NAME}
     kubectl -n ${NS} wait --for=condition=Complete --timeout=-1s job/${JOB_NAME}
     kubectl -n ${NS} logs --selector=job-name=${JOB_NAME}
+    kubectl -n ${NS} delete job/${JOB_NAME}
 }
 
 sudo() {
