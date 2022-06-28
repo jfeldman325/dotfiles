@@ -417,7 +417,7 @@ if $privelage; then
   fi
 
   if ! ssh-add -l > /dev/null; then
-    op item get dev_shell --fields private\ key | tr -d '"' | sudo ssh-add -
+    op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
     echo "ssh key added"
   fi
 fi
