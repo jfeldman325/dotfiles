@@ -407,7 +407,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 if $privelage; then
-  if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
+  if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 1 ]; then
     echo "starting ssh agent"
     export SSH_AUTH_SOCK=~/.ssh/ssh-agent.scarlet-witch-local.sock
     eval "$(ssh-agent -a $SSH_AUTH_SOCK)"
@@ -433,7 +433,6 @@ fi
 if $privelage; then 
   op item edit scarlet_witch --generate-password >/dev/null
   echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
-
 fi
 
 
