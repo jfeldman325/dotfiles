@@ -407,12 +407,10 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 if $privelage; then
-  if [ ! $(ps ax | grep [s]sh-agent | wc -l) -gt 0 ]; then
-    echo "starting ssh agent"
-    eval "$(ssh-agent)"
-    op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
-    echo "ssh key added"
-  fi
+  echo "starting ssh agent"
+  eval "$(ssh-agent)"
+  op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
+  echo "ssh key added"
 fi
 
 has starship && eval "$(starship init zsh)"
