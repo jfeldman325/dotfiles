@@ -11,8 +11,6 @@ sudo() {
 	/usr/bin/sudo -E -H -A $@ 
 }
 
-alias k="sudo kubecolor $@"
-compdef k=kubectl
 
 op() {
  local cmd="$1"
