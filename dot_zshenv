@@ -13,5 +13,5 @@ export KUBECONFIG=${HOME}/.kube/config
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export GOOSE_TOKEN=sk-xVBNKoJQJGEUABfhwPYNmgpgcHJvAxPCvNhn8rO1zxnbKKMW
-export PATH=$PATH:/home/jfeldman/.cargo/bin
+export PATH=$PATH:/home/jfeldman/.cargo/bin:$HOME/.krew/bin
 export DISPLAY=:100
