@@ -1,11 +1,15 @@
-# sudo() {
-# 	if ! ( op account get > /dev/null 2>&1 );then 
-# 		echo "Please sign into 1password before gaining sudo access:"
-# 		op signin
-# 	fi
-# 	export SUDO_ASKPASS=~/.sudo-op
-# 	/usr/bin/sudo -E -H -A $@ _normal
-# }
+sudo() {
+	if ! ( op account get > /dev/null 2>&1 );then 
+		echo "Please sign into 1password before gaining sudo access:"
+		op signin
+	fi
+	export SUDO_ASKPASS=~/.sudo-op
+  cpp='_comp_priv_prefix=(
+    $cmd -n
+    ${(kv)opt_args[(I)(-[ugHEP]|--(user|group|set-home|preserve-env|preserve-groups))]}
+  )'
+	/usr/bin/sudo -E -H -A $@ 
+}
 
 alias k="sudo kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
 
