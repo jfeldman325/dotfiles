@@ -1,4 +1,4 @@
-alias k="sudo k $@ --kubeconfig /home/jfeldman/.kube/config"
+alias k="sudo kubectl $@ --kubeconfig /home/jfeldman/.kube/config"
 
 op() {
  local cmd="$1"
