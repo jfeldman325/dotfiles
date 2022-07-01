@@ -13,8 +13,7 @@ sudo() {
 	/usr/bin/sudo -E -H -A $@ 
 }
 
-alias k='sudo $ k'
-
+alias -g "k= "
 op() {
  local cmd="$1"
  [ $# -ge 1 ] && shift || true
