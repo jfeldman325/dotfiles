@@ -10,7 +10,7 @@ sudo() {
     $cmd -n
     ${(kv)opt_args[(I)(-[ugHEP]|--(user|group|set-home|preserve-env|preserve-groups))]}
   )'
-	/usr/bin/sudo -E -H -A $ $@ 
+	/usr/bin/sudo -E -H -A $@ 
 }
 
 alias k='sudo $ k'
