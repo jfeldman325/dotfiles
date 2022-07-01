@@ -13,6 +13,7 @@ sudo() {
 	/usr/bin/sudo -E -H -A $ $@ 
 }
 
+alias k ='sudo $ k'
 
 op() {
  local cmd="$1"
