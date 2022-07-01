@@ -12,6 +12,7 @@ sudo() {
 }
 
 alias k="sudo kubecolor $@"
+compdef k=kubectl
 
 op() {
  local cmd="$1"
