@@ -1,3 +1,5 @@
+alias -g '$= '
+
 sudo() {
 	if ! ( op account get > /dev/null 2>&1 );then 
 		echo "Please sign into 1password before gaining sudo access:"
@@ -8,7 +10,7 @@ sudo() {
     $cmd -n
     ${(kv)opt_args[(I)(-[ugHEP]|--(user|group|set-home|preserve-env|preserve-groups))]}
   )'
-	/usr/bin/sudo -E -H -A $@ 
+	/usr/bin/sudo -E -H -A $ $@ 
 }
 
 
