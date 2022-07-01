@@ -11,7 +11,9 @@ sudo() {
   )'
 	/usr/bin/sudo -E -H -A $@ 
 }
+
 alias -g "k=kubectl "
+
 op() {
  local cmd="$1"
  [ $# -ge 1 ] && shift || true
