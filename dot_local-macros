@@ -1,4 +1,13 @@
-alias k="sudo -E -H kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
+sudo() {
+	if ! ( op account get > /dev/null 2>&1 );then 
+		echo "Please sign into 1password before gaining sudo access:"
+		op signin
+	fi
+	export SUDO_ASKPASS=~/.sudo-op
+	/usr/bin/sudo -E -H -A $@
+}
+
+alias k="sudo kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
 
 op() {
  local cmd="$1"
@@ -173,11 +182,3 @@ alias virtctl="k virt"
 alias wk="watch kubectl get pods"
 alias krrd="kubectl rollout restart deployment"
 
-sudo() {
-	if ! ( op account get > /dev/null 2>&1 );then 
-		echo "Please sign into 1password before gaining sudo access:"
-		op signin
-	fi
-	export SUDO_ASKPASS=~/.sudo-op
-	/usr/bin/sudo -A $@
-}
