@@ -4,7 +4,7 @@ sudo() {
 		op signin
 	fi
 	export SUDO_ASKPASS=~/.sudo-op
-	/usr/bin/sudo -E -H -A $@
+	/usr/bin/sudo -E -H -A $@ _normal
 }
 
 alias k="sudo kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
