@@ -11,7 +11,7 @@ sudo() {
 	/usr/bin/sudo -E -H -A $@ 
 }
 
-alias k="sudo kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
+alias k="sudo kubecolor $@"
 
 op() {
  local cmd="$1"
