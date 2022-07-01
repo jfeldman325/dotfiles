@@ -8,7 +8,7 @@ sudo() {
     $cmd -n
     ${(kv)opt_args[(I)(-[ugHEP]|--(user|group|set-home|preserve-env|preserve-groups))]}
   )'
-	/usr/bin/sudo -E -H -A has kubectl && . <(kubectl completion zsh) && compdef k=kubectl && $@ 
+	/usr/bin/sudo -E -H -A $@ 
 }
 
 alias k="sudo kubecolor $@ --kubeconfig /home/jfeldman/.kube/config"
