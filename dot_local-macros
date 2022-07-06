@@ -138,14 +138,14 @@ kcopy() {
 }
 
 hid(){
-  helm install $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml
+  helm install $1 ~/Coreweave/deadline/helm -f ~/Coreweave/deadline-values/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/$2/$2-workers.yaml
 }
 hud(){
-  emc $(kgn) $1 && helm upgrade $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-scale.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
+  emc $(kgn) $1 && helm upgrade $1 ~/Coreweave/deadline/helm -f ~/Coreweave/deadline-values/helm/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/helm/$2/$2-scale.yaml -f ~/Coreweave/deadline-values/helm/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
 }
 
 hdud(){
-  emc $(kgn) $1 && helm diff upgrade --debug $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline-values/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
+  emc $(kgn) $1 && helm diff upgrade --debug $1 ~/Coreweave/deadline/helm -f ~/Coreweave/deadline-values/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
 }
 kgn(){
   kubecolor config view --minify --output 'jsonpath={..namespace}'; echo
@@ -154,7 +154,7 @@ kubes(){
   kubens $1 && emc $1
 }
 htd(){
-  emc $(kgn) $1 && helm template --debug $1 ~/Coreweave/deadline/helm/deadline -f ~/Coreweave/deadline/helm/value-variants/$2/$2-setup.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-scale.yaml -f ~/Coreweave/deadline/helm/value-variants/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KE
+  emc $(kgn) $1 && helm template --debug $1 ~/Coreweave/deadline/helm -f ~/Coreweave/deadline-values/helm/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/helm/$2/$2-scale.yaml -f ~/Coreweave/deadline-values/helm/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KE
 }
 emc(){
   export MONGODB_REPLICA_SET_KEY=$(kubecolor get secret --namespace $1 $2-mongodb -o jsonpath="{.data.mongodb-replica-set-key}" | base64 --decode)
