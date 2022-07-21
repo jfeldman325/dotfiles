@@ -12,7 +12,7 @@ sudo() {
 	/usr/bin/sudo -E -H -A $@ 
 }
 
-alias -g "k=kubectl "
+alias -g "k=sudo kubectl "
 
 op() {
  local cmd="$1"
