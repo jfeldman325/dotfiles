@@ -9,7 +9,7 @@ sudo() {
     $cmd -n
     ${(kv)opt_args[(I)(-[ugHEP]|--(user|group|set-home|preserve-env|preserve-groups))]}
   )'
-	/usr/bin/sudo HOME=/home/jfeldman -E -H -A $@ 
+	/usr/bin/sudo HOME=/home/jfeldman PATH=$PATH -E -H -A $@ 
 }
 
 # alias -g "kubectl=sudo kubectl "
