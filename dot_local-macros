@@ -35,13 +35,13 @@ k() {
     local kubecmd="kubectl"
   fi
 }
+fpath+=("${HOME}/.local/completions")
+fpath+=("~/.local/completions")
+path+=("~/.local/bin")
 
 . <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
 
 
-fpath+=("${HOME}/.local/completions")
-fpath+=("~/.local/completions")
-path+=("~/.local/bin")
 
 
 op() {
