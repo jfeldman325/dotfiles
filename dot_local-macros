@@ -151,7 +151,7 @@ hdud(){
   emc $(kgn) $1 && helm diff upgrade --debug $1 ~/Coreweave/deadline/helm -f ~/Coreweave/deadline-values/$2/$2-setup.yaml -f ~/Coreweave/deadline-values/$2/$2-workers.yaml --set mongodb.auth.rootPassword=$MONGODB_ROOT_PASSWORD --set mongodb.auth.replicaSetKey=$MONGODB_REPLICA_SET_KEY
 }
 kgn(){
-  kubecolor config view --minify --output 'jsonpath={..namespace}'; echo
+  k config view --minify --output 'jsonpath={..namespace}'; echo
 }
 kubes(){
   kubens $1 && emc $1
