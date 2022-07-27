@@ -253,15 +253,11 @@ if ! has op; then
     sudo chmod +x op
     sudo mv op /usr/local/bin/
 fi
-echo "adding completions"
+
+echo "Initializing..."
 eval "$(op completion zsh)"; compdef _op op
-
-
-echo "applying chezmoi"
 chezmoi apply ~/.local-macros
 chezmoi apply ~/.sudo-op
-
-echo "sourcing local macros"
 source ~/.local-macros
 
 
@@ -400,10 +396,8 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 if $privelage; then
-  echo "starting ssh agent"
   eval "$(ssh-agent)"
   op item get dev_shell --fields private\ key | tr -d '"' | ssh-add - >> /dev/null 2>&1
-  echo "ssh key added"
 fi
 
 has starship && eval "$(starship init zsh)"
@@ -415,7 +409,7 @@ if [ ! -f $KUBECONFIG ] && $privelage; then
 fi
 
 if $privelage; then 
-  op item edit scarlet_witch --generate-password >/dev/null
+  op item edit scarlet_witch --generate-password >> /dev/null 2>&1
   echo -e "$(op item get scarlet_witch --fields password)\n$(op item get scarlet_witch --fields password)" | sudo passwd jfeldman 
 fi
 
