@@ -251,4 +251,3 @@ local reliability="RELIABILITY:metadata.labels['node\.coreweave\.cloud/reliabili
 local hypervisor="HYPERVISOR:metadata.labels['node\.coreweave\.cloud\/hypervisor']"
 local version="VERSION:metadata.labels['node\.coreweave\.cloud\/version']"
 alias nodes="k get nodes -o=custom-columns=\"${name},${node_ip},${type},${link},${ready},${cordon},${taint},${reliability},${hypervisor},${version}\""
-compdef k=kubectl
