@@ -23,10 +23,8 @@ sudo() {
 	/usr/bin/sudo HOME=/home/jfeldman PATH=$PATH -E -H -A $@ 
 }
 
-
-. <(kubectl completion zsh) && compdef _kubectl kubectl
-alias -g k="sudo kubectl"
-compdef k=kubectl
+alias -g k="kubectl"
+. <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
 
 
 op() {
