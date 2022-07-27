@@ -26,8 +26,8 @@ sudo() {
 
 . <(kubectl completion zsh) && compdef _kubectl kubectl
 
-alias -g k="sudo kubectl"
-compdef sk=kubectl
+alias -g k="sudo kubecolor"
+compdef k=kubectl
 
 
 op() {
