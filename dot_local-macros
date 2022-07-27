@@ -15,6 +15,7 @@ sudo() {
 # alias -g "kubectl=sudo kubectl "
 #alias -g "kubecolor=sudo kubecolor "
 alias -g "k=sudo kubecolor "
+alias -g "kubectl=sudo kubectl "
 
 op() {
  local cmd="$1"
