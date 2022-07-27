@@ -28,10 +28,10 @@ k() {
     local kubecmd="kubecolor"
     case "$1" in
       get|describe|desc)
-        command ${kubecmd} "$@"
+        command sudo ${kubecmd} "$@"
       ;;
       neat|*)
-        command ${kubecmd} --plain "$@"
+        command sudo ${kubecmd} --plain "$@"
       ;;
     esac
   else
