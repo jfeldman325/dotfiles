@@ -282,11 +282,7 @@ if [ $privelage = true ]; then
     echo "gh authenticated"
   fi
   
-  echo "applying chezmoi"
   chezmoi apply --force
-
-  echo "loading plugins"
-  plugin load coreweave/dev-shell
   plugin load jfeldman325/dev-packages
 fi
 
@@ -298,7 +294,6 @@ plugins+=(
     zdharma-continuum/fast-syntax-highlighting
 )
 
-echo "loading more plugins"
 plugin load $plugins
 unset plugins
 
@@ -355,8 +350,6 @@ fi
 # Do CoreWeave specific stuff
 if [ -d /etc/coreweave ]; then
   # Hello, beastie...
-  pinfo "CoreWeave - status: ${GREEN}OK${NO_COLOR}" #Todo: check if coreweave is actually OK
-
   export POETRY_VERSION=1.1.6
   export MINIKUBE_KUBERNETES_VERSION="v${KUBECTL_VERSION-}"
   export SKAFFOLD_DEFAULT_REPO="registry.gitlab.com/coreweave"
@@ -409,7 +402,7 @@ complete -o nospace -C ${BIN_DIR}/vault vault
 if $privelage; then
   echo "starting ssh agent"
   eval "$(ssh-agent)"
-  op item get dev_shell --fields private\ key | tr -d '"' | ssh-add -
+  op item get dev_shell --fields private\ key | tr -d '"' | ssh-add - >> /dev/null 2>&1
   echo "ssh key added"
 fi
 
