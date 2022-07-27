@@ -1,3 +1,6 @@
+fpath+=("~/.local/completions")
+path+=("~/.local/bin")
+
 if [[ ! -d ~/.local/bin ]]; then
   mkdir -p ~/.local/bin
 fi
@@ -35,9 +38,7 @@ k() {
     local kubecmd="kubectl"
   fi
 }
-fpath+=("${HOME}/.local/completions")
-fpath+=("~/.local/completions")
-path+=("~/.local/bin")
+
 
 . <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
 
