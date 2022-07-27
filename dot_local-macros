@@ -189,7 +189,6 @@ ked(){
 }
 
 alias kaf="k apply -f"
-alias ked="k get $1 -o yaml | k neat >> /tmp/kedit-$1.yaml && "
 alias ke="k exec -it"
 alias kgs="k get service"
 alias kgp="k get pod -o wide"
