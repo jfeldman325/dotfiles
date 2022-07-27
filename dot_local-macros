@@ -8,7 +8,7 @@ if [[ ! -d ~/.local/completions ]]; then
 fi
 
 fpath+=("${HOME}/.local/completions")
-. <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
+. <(kubectl completion zsh) && compdef _kubectl kubectl 
 
 fpath+=("~/.local/completions")
 path+=("~/.local/bin")
