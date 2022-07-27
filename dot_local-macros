@@ -7,12 +7,6 @@ if [[ ! -d ~/.local/completions ]]; then
   mkdir -p ~/.local/completions
 fi
 
-fpath+=("${HOME}/.local/completions")
-. <(kubectl completion zsh) && compdef _kubectl kubectl 
-
-fpath+=("~/.local/completions")
-path+=("~/.local/bin")
-
 sudo() {
 	if ! ( op account get > /dev/null 2>&1 );then 
 		echo "Please sign into 1password before gaining sudo access:"
@@ -43,6 +37,12 @@ k() {
 }
 
 . <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
+
+
+fpath+=("${HOME}/.local/completions")
+fpath+=("~/.local/completions")
+path+=("~/.local/bin")
+
 
 op() {
  local cmd="$1"
