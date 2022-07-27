@@ -219,7 +219,7 @@ kedit(){
     echo "Please provide a resource name"
     return 1
   fi
-  kubectl get $1 $2 -o yaml | kubectl neat >> /tmp/kedit-$2.yaml
+  k get $1 $2 -o yaml | k neat >> /tmp/kedit-$2.yaml
   sudo chown jfeldman /tmp/kedit-$2.yaml && chmod +rw /tmp/kedit-$2.yaml
   code -w /tmp/kedit-$2.yaml
   k apply -f /tmp/kedit-$2.yaml
