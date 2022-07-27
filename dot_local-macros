@@ -8,6 +8,7 @@ if [[ ! -d ~/.local/completions ]]; then
 fi
 
 fpath+=("${HOME}/.local/completions")
+. <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
 
 sudo() {
 	if ! ( op account get > /dev/null 2>&1 );then 
