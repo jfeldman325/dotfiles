@@ -23,25 +23,10 @@ sudo() {
 	/usr/bin/sudo HOME=/home/jfeldman PATH=$PATH -E -H -A $@ 
 }
 
-k() {
-  if has kubecolor; then
-    local kubecmd="kubecolor"
-    case "$1" in
-      get|describe|desc)
-        command ${kubecmd} "$@"
-      ;;
-      neat|*)
-        command ${kubecmd} --plain "$@"
-      ;;
-    esac
-  else
-    local kubecmd="kubectl"
-  fi
-}
 
-. <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
+. <(kubectl completion zsh) && compdef _kubectl kubectl
 
-alias -g sk="sudo kubectl"
+alias -g k="sudo kubecolor"
 compdef sk=kubectl
 
 
