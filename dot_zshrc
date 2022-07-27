@@ -396,7 +396,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C ${BIN_DIR}/vault vault
 
 if $privelage; then
-  eval "$(ssh-agent)"
+  eval "$(ssh-agent)" >> /dev/null 2>&1
   op item get dev_shell --fields private\ key | tr -d '"' | ssh-add - >> /dev/null 2>&1
 fi
 
