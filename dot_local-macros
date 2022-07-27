@@ -28,10 +28,10 @@ k() {
     local kubecmd="kubecolor"
     case "$1" in
       get|describe|desc)
-        command sudo ${kubecmd} "$@"
+        command ${kubecmd} "$@"
       ;;
       neat|*)
-        command sudo ${kubecmd} --plain "$@"
+        command ${kubecmd} --plain "$@"
       ;;
     esac
   else
@@ -39,10 +39,10 @@ k() {
   fi
 }
 
-
 . <(kubectl completion zsh) && compdef _kubectl kubectl && compdef k=kubectl
 
-
+alias -g sk="sudo kubectl"
+compdef sk=kubectl
 
 
 op() {
