@@ -180,7 +180,16 @@ klogin(){
   python3 ~/.login/okta-login.py -u $(op item get coreweave.okta.com --fields username) -p $(op item get coreweave.okta.com --fields password) -c $(op item get coreweave.okta.com --fields client_id) -s $(op item get coreweave.okta.com --fields client_secret)
 }
 
+ked(){
+  k get $1 -o yaml | k neat >> /tmp/kedit-$1.yaml
+  sudo chown jfeldman /tmp/kedit-$1.yaml && chmod +rw /tmp/kedit-$1.yaml
+  code -w /tmp/kedit-$1.yaml
+  k apply -f /tmp/kedit-$1.yaml
+  rm /tmp/kedit-$1.yaml
+}
+
 alias kaf="k apply -f"
+alias ked="k get $1 -o yaml | k neat >> /tmp/kedit-$1.yaml && "
 alias ke="k exec -it"
 alias kgs="k get service"
 alias kgp="k get pod -o wide"
