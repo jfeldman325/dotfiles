@@ -371,7 +371,7 @@ if [ -d /etc/coreweave ]; then
 fi
 
 # k alias hack TODO: remember compdef load order
-has kubectl && . <(kubectl completion zsh) && compdef k=kubectl
+has kubectl && . <(kubectl completion zsh) && compdef k
 
 # github-cli
 has gh && . <(gh completion -s zsh) && compdef _gh gh
