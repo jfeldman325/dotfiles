@@ -181,11 +181,11 @@ klogin(){
 }
 
 ked(){
-  k get $1 -o yaml | k neat >> /tmp/kedit-$1.yaml
-  sudo chown jfeldman /tmp/kedit-$1.yaml && chmod +rw /tmp/kedit-$1.yaml
-  code -w /tmp/kedit-$1.yaml
-  k apply -f /tmp/kedit-$1.yaml
-  rm /tmp/kedit-$1.yaml
+  k get $1 $2 -o yaml | k neat >> /tmp/kedit-$2.yaml
+  sudo chown jfeldman /tmp/kedit-$2.yaml && chmod +rw /tmp/kedit-$2.yaml
+  code -w /tmp/kedit-$2.yaml
+  k apply -f /tmp/kedit-$2.yaml
+  rm /tmp/kedit-$2.yaml
 }
 
 alias kaf="k apply -f"
